@@ -20,10 +20,11 @@ public class FrontEnd extends JFrame {
     private void construccionPantalla(){
         super.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         super.setSize(400, 200);
-        super.setLayout(new GridLayout(5, 2, 1,1));
+        super.setLayout(new GridLayout(5, 2));
     }
+
     private void agregarComponente(Component componente){
-        super.getContentPane().add(componente);
+        super.getContentPane().add(componente,BorderLayout.PAGE_START);
     }
 
     private void crearComponentes(){
