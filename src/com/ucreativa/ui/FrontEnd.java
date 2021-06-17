@@ -2,9 +2,10 @@ package com.ucreativa.ui;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
 
 public class FrontEnd extends JFrame {
+
+    private String[] listaCambios = { "Agregar", "Remover", "Modificar" ,"Incapacidad" };
 
     public FrontEnd(String titulo){
         super(titulo);
@@ -19,7 +20,7 @@ public class FrontEnd extends JFrame {
     private void construccionPantalla(){
         super.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         super.setSize(400, 200);
-        super.setLayout(new GridLayout(5, 2));
+        super.setLayout(new GridLayout(5, 2, 1,1));
     }
     private void agregarComponente(Component componente){
         super.getContentPane().add(componente);
@@ -30,11 +31,15 @@ public class FrontEnd extends JFrame {
         JLabel lblNombre = new JLabel("Nombre");
         JLabel lblCedula = new JLabel("Cedula");
         JLabel lblSalario = new JLabel("Salario");
+        JLabel lblCambio = new JLabel("Cambio");
+        JLabel lblComentario = new JLabel("Comentario");
 
         // Crear Textos
         JTextField txtNombre = new JTextField();
         JTextField txtCedula = new JTextField();
         JTextField txtSalario = new JTextField();
+        JComboBox cbxCambio = new JComboBox(listaCambios);
+        JTextArea txtComentario = new JTextArea();
 
         this.agregarComponente(lblNombre);
         this.agregarComponente(txtNombre);
@@ -42,6 +47,10 @@ public class FrontEnd extends JFrame {
         this.agregarComponente(txtCedula);
         this.agregarComponente(lblSalario);
         this.agregarComponente(txtSalario);
+        this.agregarComponente(lblCambio);
+        this.agregarComponente(cbxCambio);
+        this.agregarComponente(lblComentario);
+        this.agregarComponente(txtComentario);
         };
 
 }
