@@ -1,8 +1,11 @@
 package com.ucreativa;
 
+import com.ucreativa.ui.FrontEnd;
+
 public class Main {
 
     public static void main(String[] args) {
-	// write your code here
+        FrontEnd fe = new FrontEnd("Sistema de Vacunacion");
+        fe.build();
     }
 }
