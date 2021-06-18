@@ -20,7 +20,7 @@ public class FrontEnd extends JFrame {
     private void construccionPantalla(){
         super.setBounds(100, 100, 730, 489);
         super.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        super.setSize(200, 150);
+        super.setSize(375, 175);
         super.setLayout(new GridLayout(6, 2));
     }
 
