@@ -18,13 +18,14 @@ public class FrontEnd extends JFrame {
     }
 
     private void construccionPantalla(){
+        super.setBounds(100, 100, 730, 489);
         super.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         super.setSize(400, 200);
-        super.setLayout(new GridLayout(5, 2));
+        super.setLayout(new GridLayout(6, 2));
     }
 
     private void agregarComponente(Component componente){
-        super.getContentPane().add(componente,BorderLayout.PAGE_START);
+        super.getContentPane().add(componente);
     }
 
     private void crearComponentes(){
@@ -42,6 +43,10 @@ public class FrontEnd extends JFrame {
         JComboBox cbxCambio = new JComboBox(listaCambios);
         JTextArea txtComentario = new JTextArea();
 
+        JButton btnSalvar = new JButton("Salvar");
+        JButton btnReporte = new JButton("Reporte");
+
+
         this.agregarComponente(lblNombre);
         this.agregarComponente(txtNombre);
         this.agregarComponente(lblCedula);
@@ -52,6 +57,8 @@ public class FrontEnd extends JFrame {
         this.agregarComponente(cbxCambio);
         this.agregarComponente(lblComentario);
         this.agregarComponente(txtComentario);
+        this.agregarComponente(btnSalvar);
+        this.agregarComponente(btnReporte);
         };
 
 }
