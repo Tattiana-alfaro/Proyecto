@@ -7,6 +7,7 @@ import java.util.Date;
 import java.util.List;
 
 public interface Repository {
-    void save(Persona persona, Date fecha, String accion, String descripcion);
+    void save(Empleado persona, Date fecha, String accion, String descripcion);
+
     List<String> get();
 }

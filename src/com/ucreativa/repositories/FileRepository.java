@@ -9,15 +9,19 @@ import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class FileRepository implements  Repository{
+public class FileRepository implements Repository{
 
     private final String FILE_PATH = "db.txt";
+
+
 
     @Override
     public void save(Empleado persona, Date fecha, String accion, String descripcion) {
         SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy hh:mm:ss");
+
+
         String text = persona.getCedula() + " - " + persona.getNombre() + " - " +
-                persona.getSalario() + " - " + accion + " - " + descripcion + "\n";
+                persona.getSalario() + " - " + accion + " - " + descripcion + " - " + fecha + "\n";
         try {
             BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_PATH, true));
             writer.append(text);
@@ -25,6 +29,7 @@ public class FileRepository implements  Repository{
         } catch (IOException e) {
             e.printStackTrace();
         }
+
     }
 
     @Override

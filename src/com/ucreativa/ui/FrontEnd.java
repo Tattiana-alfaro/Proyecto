@@ -1,11 +1,16 @@
 package com.ucreativa.ui;
 
+import com.ucreativa.repositories.FileRepository;
+import com.ucreativa.services.BitacoraService;
+
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
 
 public class FrontEnd extends JFrame {
 
     private String[] listaCambios = { "Agregar", "Remover", "Modificar" ,"Incapacidad" };
+    BitacoraService service = new BitacoraService(new FileRepository());
 
     public FrontEnd(String titulo){
         super(titulo);
@@ -30,8 +35,8 @@ public class FrontEnd extends JFrame {
 
     private void crearComponentes(){
         // Crear Labels
-        JLabel lblNombre = new JLabel("Nombre");
-        JLabel lblCedula = new JLabel("Cedula");
+        JLabel lblNombre = new JLabel("*Nombre");
+        JLabel lblCedula = new JLabel("*Cedula");
         JLabel lblSalario = new JLabel("Salario");
         JLabel lblCambio = new JLabel("Cambio");
         JLabel lblComentario = new JLabel("Comentario");
@@ -43,9 +48,47 @@ public class FrontEnd extends JFrame {
         JComboBox cbxCambio = new JComboBox(listaCambios);
         JTextArea txtComentario = new JTextArea();
 
-        JButton btnSalvar = new JButton("Salvar");
-        JButton btnReporte = new JButton("Reporte");
 
+
+        JButton btnSalvar = new JButton("Salvar");
+        btnSalvar.addActionListener(new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String test = txtNombre.getText();
+
+                String actionValue = cbxCambio.getSelectedItem().toString();
+                if (!(txtNombre.getText().equals("") || txtCedula.getText().equals(""))) {
+                    try {
+                        service.save(txtNombre.getText(),
+                                txtCedula.getText(),
+                                txtSalario.getText(),
+                                actionValue,
+                                txtComentario.getText());
+                        String reporte = String.join("\n", service.get());
+                        JOptionPane.showMessageDialog(((JButton) e.getSource()).getParent(), reporte);
+                    } catch (ErrorSalarioException error) {
+                        JOptionPane.showMessageDialog(((JButton) e.getSource()).getParent(),
+                                error.getMessage());
+                    }
+                    txtNombre.setText("");
+                    txtCedula.setText("");
+                    txtComentario.setText("");
+                    cbxCambio.setSelectedItem(0);
+                }
+                else {
+                    JOptionPane.showMessageDialog(((JButton) e.getSource()).getParent(), "Por favor complete los datos de los campos requeridos.");
+                }
+            }
+        });
+
+        JButton btnReporte = new JButton("Reporte");
+        btnReporte.addActionListener(new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String reporte = String.join("\n", service.get());
+                JOptionPane.showMessageDialog(((JButton) e.getSource()).getParent(), reporte);
+            }
+        });
 
         this.agregarComponente(lblNombre);
         this.agregarComponente(txtNombre);
@@ -60,5 +103,6 @@ public class FrontEnd extends JFrame {
         this.agregarComponente(btnSalvar);
         this.agregarComponente(btnReporte);
         };
+
 
 }

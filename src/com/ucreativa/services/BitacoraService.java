@@ -3,8 +3,10 @@ package com.ucreativa.services;
 import com.ucreativa.entities.Empleado;
 import com.ucreativa.entities.Persona;
 import com.ucreativa.repositories.Repository;
+import com.ucreativa.ui.ErrorSalarioException;
 
 import java.util.Date;
+import java.util.List;
 
 public class BitacoraService {
     private Repository repository;
@@ -13,11 +15,23 @@ public class BitacoraService {
         this.repository = repository;
     }
 
-    public void save(String nombre, String cedula, double salario,
-                     String accion, String descripcion) {
-        Persona persona;
+    public void save(String nombre, String cedula, String txtSalario,
+                     String accion, String descripcion) throws ErrorSalarioException {
+        double salario;
+        try {
+            salario = Double.parseDouble(txtSalario);
+        }catch (NumberFormatException x) {
+            throw new ErrorSalarioException(txtSalario);
 
-        persona = new Empleado(nombre, cedula, salario);
-        this.repository.save(persona, new Date(),  accion, descripcion);
+        }
+            Persona persona;
+
+            persona = new Empleado(nombre, cedula, salario);
+            this.repository.save((Empleado) persona, new Date(), accion, descripcion);
+
+    }
+
+    public List<String> get(){
+        return this.repository.get();
     }
 }
